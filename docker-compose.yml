@@ -1,0 +1,37 @@
+# Use root/examplerootpass as user/password credentials
+version: '3.9'
+
+services:
+  mysql_db:
+    image: mysql/mysql-server:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'rootpass'
+      MYSQL_DATABASE: 'eDuca'
+      MYSQL_USER: 'spring'
+      MYSQL_PASSWORD: 'springpass'
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+    
+  spring:
+    build: ./todolist
+    container_name: spring
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    image: es_107647
+    expose:
+      - 8080
+    depends_on:
+      - mysql_db
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+
+
+  
