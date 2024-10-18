@@ -5,6 +5,8 @@ import es._7.todolist.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 import es._7.todolist.models.Task;
 
+import java.util.List;
+
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
@@ -15,6 +17,10 @@ public class TaskService {
 
     public Task save(Task task) {
         return taskRepository.save(task);
+    }
+
+    public List<Task> findAll() {
+        return taskRepository.findAll();
     }
 
 
