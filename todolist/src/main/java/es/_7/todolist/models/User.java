@@ -21,6 +21,9 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
+    private String email;
+
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
