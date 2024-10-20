@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Task List</h2>
+  <button class="btn btn-primary" (click)="openModal()">+ Add Task</button>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Deadline</th>
+      <th>Priority</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.deadline | date:'short' }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.completion_status }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

@@ -29,5 +29,7 @@ public class Task {
     private Time deadline;
 
     @Enumerated(EnumType.STRING)
-    private TaskStatus status;
+    private TaskStatus priority;
+
+    private String completion_status;
 }
