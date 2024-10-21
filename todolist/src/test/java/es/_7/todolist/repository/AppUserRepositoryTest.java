@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import es._7.todolist.models.Task;
-import es._7.todolist.repositories.TaskRepository;
+import es._7.todolist.models.AppUser;
+import es._7.todolist.repositories.AppUserRepository;
 
 @DataJpaTest
-class TaskRepositoryTest {
+class AppUserRepositoryTest {
     @Autowired
-    private TaskRepository taskRepository;
+    private AppUserRepository userRepository;
 
 }

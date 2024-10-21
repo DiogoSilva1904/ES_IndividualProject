@@ -35,4 +35,37 @@ export class ApiService {
     });
     return await response.json() ?? undefined;
   }
+
+  async getLowPriorityTasks() {
+    const url = 'http://localhost:8080/api/tasks/priority/low';
+    const response = await fetch(url,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return await response.json() ?? undefined;
+  }
+
+  async getHighPriorityTasks() {
+    const url = 'http://localhost:8080/api/tasks/priority/high';
+    const response = await fetch(url,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return await response.json() ?? undefined;
+  }
+
+  async getMediumPriorityTasks() {
+    const url = 'http://localhost:8080/api/tasks/priority/medium';
+    const response = await fetch(url,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return await response.json() ?? undefined;
+  }
 }

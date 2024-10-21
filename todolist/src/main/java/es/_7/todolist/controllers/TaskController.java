@@ -2,6 +2,7 @@ package es._7.todolist.controllers;
 
 
 import es._7.todolist.models.Task;
+import es._7.todolist.models.TaskStatus;
 import es._7.todolist.services.TaskService;
 import jakarta.jws.soap.SOAPBinding;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,11 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<Task>> findAll() {
         return ResponseEntity.ok(taskService.findAll());
+    }
+
+    @GetMapping("/priority/{priority}")
+    public ResponseEntity<List<Task>> findByPriorityTasks(@PathVariable String priority) {
+        return ResponseEntity.ok(taskService.findByPriorityTasks(priority));
     }
 
     //get tasks by user

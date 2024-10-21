@@ -3,11 +3,11 @@ version: '3.9'
 
 services:
   mysql_db:
-    image: mysql/mysql-server:5.7
+    image: 'mysql:latest'
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 'rootpass'
-      MYSQL_DATABASE: 'eDuca'
+      MYSQL_ROOT_PASSWORD: 'rootpassword'
+      MYSQL_DATABASE: 'mydb'
       MYSQL_USER: 'spring'
       MYSQL_PASSWORD: 'springpass'
     ports:
@@ -28,10 +28,16 @@ services:
       - mysql_db
     networks:
       - default
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/mydb
+      SPRING_DATASOURCE_USERNAME: spring
+      SPRING_DATASOURCE_PASSWORD: springpass
+      
 
 networks:
   default:
     driver: bridge
 
 
+  
   

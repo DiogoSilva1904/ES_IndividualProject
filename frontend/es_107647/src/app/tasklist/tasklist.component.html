@@ -2,26 +2,42 @@
   <h2>Task List</h2>
   <button class="btn btn-primary" (click)="openModal()">+ Add Task</button>
 
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Deadline</th>
-      <th>Priority</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let task of tasks">
-      <td>{{ task.title }}</td>
-      <td>{{ task.description }}</td>
-      <td>{{ task.deadline | date:'short' }}</td>
-      <td>{{ task.priority }}</td>
-      <td>{{ task.completion_status }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="task-container">
+    <!-- Low Priority Section -->
+    <div class="task-column low-priority">
+      <h3>Low Priority Tasks</h3>
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of lowPriorityTasks">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-description">{{ task.description }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium Priority Section -->
+    <div class="task-column medium-priority">
+      <h3>Medium Priority Tasks</h3>
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of mediumPriorityTasks">
+          <div *ngIf="task.priority === 'MEDIUM'">
+            <div class="task-title">{{ task.title }}</div>
+            <div class="task-description">{{ task.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- High Priority Section -->
+    <div class="task-column high-priority">
+      <h3>High Priority Tasks</h3>
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of highPriorityTasks">
+          <div *ngIf="task.priority === 'HIGH'">
+            <div class="task-title">{{ task.title }}</div>
+            <div class="task-description">{{ task.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-

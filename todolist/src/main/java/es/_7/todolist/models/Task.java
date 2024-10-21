@@ -20,7 +20,7 @@ public class Task {
     private Long id;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
     private String title;
 
@@ -28,8 +28,9 @@ public class Task {
 
     private Time deadline;
 
-    @Enumerated(EnumType.STRING)
-    private TaskStatus priority;
+    //@Enumerated(EnumType.STRING)
+    //private TaskStatus priority;
+    private String priority;
 
     private String completion_status;
 }

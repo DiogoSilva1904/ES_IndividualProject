@@ -1,7 +1,7 @@
 package es._7.todolist.services;
 
-import es._7.todolist.models.User;
-import es._7.todolist.repositories.UserRepository;
+import es._7.todolist.models.AppUser;
+import es._7.todolist.repositories.AppUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,23 +22,23 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-class UserServiceTest {
+class AppUserServiceTest {
 
         @Mock
-        private UserRepository userRepository;
+        private AppUserRepository userRepository;
 
         @InjectMocks
-        private UserService userService;
+        private AppUserService userService;
 
         @Test
         void saveUser() {
-            User user = new User();
+            AppUser user = new AppUser();
             user.setUsername("John Doe");
             user.setEmail("d@gmail.com");
 
-            when(userRepository.save(any(User.class))).thenReturn(user);
+            when(userRepository.save(any(AppUser.class))).thenReturn(user);
 
-            User savedUser = userService.save(user);
+            AppUser savedUser = userService.save(user);
 
             assertNotNull(savedUser);
             assertEquals(user.getUsername(), savedUser.getUsername());
