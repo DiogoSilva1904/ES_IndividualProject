@@ -8,7 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/users")
 public class AppUserController {
@@ -23,8 +26,4 @@ public class AppUserController {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @GetMapping
-    public ResponseEntity<List<AppUser>> findAll() {
-        return ResponseEntity.ok(userService.findAll());
-    }
 }

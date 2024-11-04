@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +25,9 @@ public class AppUser {
 
     @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String subId;
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;

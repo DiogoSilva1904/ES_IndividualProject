@@ -1,13 +1,41 @@
 <div class="container">
   <h2>Task List</h2>
-  <button class="btn btn-primary" (click)="openModal()">+ Add Task</button>
+  <div class="btn-container">
+    <button class="btn" (click)="openModal()">+ Add Task</button>
+  </div>
+
+  <div class="filter-container">
+    <div>
+      <label for="sortOptions">Sort by:</label>
+      <select id="sortOptions" (change)="onSortChange($event)">
+        <option value="" disabled selected>Select sorting option</option>
+        <option value="date">Creation Date</option>
+        <option value="deadline">Deadline</option>
+        <option value="completion">Completion Status</option>
+      </select>
+    </div>
+
+    <div>
+      <input type="text" placeholder="Filter by category" #filter>
+      <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+    </div>
+
+    <div>
+      <label for="completionFilter">Filter by Completion Status:</label>
+      <select id="completionFilter" (change)="onFilterChange($event)">
+        <option value="">All Statuses</option>
+        <option value="Completed">Completed</option>
+        <option value="Incomplete">Incomplete</option>
+      </select>
+    </div>
+  </div>
 
   <div class="task-container">
     <!-- Low Priority Section -->
     <div class="task-column low-priority">
       <h3>Low Priority Tasks</h3>
       <div class="task-list">
-        <div class="task-card" *ngFor="let task of lowPriorityTasks">
+        <div class="task-card" *ngFor="let task of filteredLowPriorityTasks"(click)="viewTask(task)"  [ngClass]="{'completed-task': task.completion_status === 'Completed'}">
           <div class="task-title">{{ task.title }}</div>
           <div class="task-description">{{ task.description }}</div>
         </div>
@@ -18,7 +46,7 @@
     <div class="task-column medium-priority">
       <h3>Medium Priority Tasks</h3>
       <div class="task-list">
-        <div class="task-card" *ngFor="let task of mediumPriorityTasks">
+        <div class="task-card" *ngFor="let task of filteredMediumPriorityTasks" (click)="viewTask(task)"  [ngClass]="{'completed-task': task.completion_status === 'Completed'}">
           <div *ngIf="task.priority === 'MEDIUM'">
             <div class="task-title">{{ task.title }}</div>
             <div class="task-description">{{ task.description }}</div>
@@ -31,7 +59,7 @@
     <div class="task-column high-priority">
       <h3>High Priority Tasks</h3>
       <div class="task-list">
-        <div class="task-card" *ngFor="let task of highPriorityTasks">
+        <div class="task-card" *ngFor="let task of filteredHighPriorityTasks" (click)="viewTask(task)"  [ngClass]="{'completed-task': task.completion_status === 'Completed'}">
           <div *ngIf="task.priority === 'HIGH'">
             <div class="task-title">{{ task.title }}</div>
             <div class="task-description">{{ task.description }}</div>

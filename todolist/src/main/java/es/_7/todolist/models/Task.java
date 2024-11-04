@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Time;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Getter
 @Setter
@@ -20,17 +22,21 @@ public class Task {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("tasks")
     private AppUser user;
 
     private String title;
 
     private String description;
 
-    private Time deadline;
+    private LocalDate deadline;
 
-    //@Enumerated(EnumType.STRING)
-    //private TaskStatus priority;
+    private LocalDate creation_date;
+
     private String priority;
 
     private String completion_status;
+
+    private String category;
 }

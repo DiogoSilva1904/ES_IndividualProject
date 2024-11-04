@@ -31,7 +31,7 @@ class AppUserServiceTest {
         private AppUserService userService;
 
         @Test
-        void saveUser() {
+        void whenSaveUser_thenReturnUser() {
             AppUser user = new AppUser();
             user.setUsername("John Doe");
             user.setEmail("d@gmail.com");
@@ -43,6 +43,24 @@ class AppUserServiceTest {
             assertNotNull(savedUser);
             assertEquals(user.getUsername(), savedUser.getUsername());
             assertEquals(user.getEmail(), savedUser.getEmail());
+        }
+
+        @Test
+        void whenFindBySubId_thenReturnUser() {
+            AppUser user = new AppUser();
+            user.setUsername("John Doe");
+            user.setEmail("d@gmail.com");
+            user.setSubId("123");
+
+            when(userRepository.findBySubId("123")).thenReturn(user);
+
+            AppUser r_user = userService.findBySubId("123");
+
+            assertNotNull(user);
+            assertEquals(user.getUsername(), r_user.getUsername());
+            assertEquals(user.getEmail(), r_user.getEmail());
+            assertEquals(user.getSubId(), r_user.getSubId());
+
         }
 
 }

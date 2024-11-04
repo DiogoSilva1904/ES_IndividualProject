@@ -1,9 +1,7 @@
 # Use root/examplerootpass as user/password credentials
-version: '3.9'
-
 services:
   mysql_db:
-    image: 'mysql:latest'
+    image: mysql/mysql-server:5.7
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 'rootpassword'
@@ -14,25 +12,26 @@ services:
       - "3306:3306"
     networks:
       - default
-    
+
   spring:
-    build: ./todolist
-    container_name: spring
+    build:
+      context:  ./todolist
+      dockerfile: Dockerfile
+    volumes:
+      - ./todolist:/app
+      - ./todolist/.m2:/root/.m2
+    working_dir: /app
+    command: sh run.sh
     ports:
       - 8080:8080
+      - 35729:35729
+      - 5005:5005
     restart: unless-stopped
-    image: es_107647
-    expose:
-      - 8080
     depends_on:
       - mysql_db
     networks:
       - default
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/mydb
-      SPRING_DATASOURCE_USERNAME: spring
-      SPRING_DATASOURCE_PASSWORD: springpass
-      
+    
 
 networks:
   default:

@@ -5,8 +5,6 @@ import es._7.todolist.repositories.AppUserRepository;
 import org.springframework.stereotype.Service;
 import es._7.todolist.models.AppUser;
 
-import java.util.List;
-
 @Service
 public class AppUserService {
     private final AppUserRepository userRepository;
@@ -19,8 +17,9 @@ public class AppUserService {
         return userRepository.save(user);
     }
 
-    public List<AppUser> findAll() {
-        return userRepository.findAll();
+
+    public AppUser findBySubId(String subId) {
+        return userRepository.findBySubId(subId);
     }
 
 }

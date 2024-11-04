@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy, } from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import { ApiService } from '../api.service'; // Adjust path as needed
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatError, MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle
+} from "@angular/material/datepicker";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {NgIf} from "@angular/common";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button"; // Import FormBuilder and Validators
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-task-modal',
   standalone: true,
   templateUrl: './task-modal.component.html',
+  providers: [provideNativeDateAdapter()],
   imports: [
     MatDialogContent,
     MatFormField,
@@ -20,6 +30,7 @@ import {MatButton} from "@angular/material/button"; // Import FormBuilder and Va
     MatDatepicker,
     MatDatepickerInput,
     ReactiveFormsModule,
+    MatNativeDateModule,
     MatSelect,
     MatOption,
     MatDialogActions,
@@ -28,9 +39,14 @@ import {MatButton} from "@angular/material/button"; // Import FormBuilder and Va
     MatDialogTitle,
     MatButton,
     MatLabel,
-    MatError
+    MatError,
+    MatHint,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule
   ],
-  styleUrls: ['./task-modal.component.css']
+  styleUrls: ['./task-modal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskModalComponent implements OnInit {
   taskForm!: FormGroup;  // Define a FormGroup for the task form
@@ -42,12 +58,16 @@ export class TaskModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const formattedCreationDate = new Date().toISOString().split('T')[0]; // Gets only the date part
     // Initialize the task form
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
       priority: ['LOW', Validators.required],
-      completion_status: ['Incomplete']
+      deadline: [null, Validators.required],
+      completion_status: ['Incomplete'],
+      creation_date: [formattedCreationDate, Validators.required],
+      category: ['', Validators.required],
     });
   }
 
