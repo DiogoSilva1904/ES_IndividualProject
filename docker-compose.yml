@@ -1,18 +1,5 @@
 # Use root/examplerootpass as user/password credentials
-services:
-  mysql_db:
-    image: mysql/mysql-server:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: 'rootpassword'
-      MYSQL_DATABASE: 'mydb'
-      MYSQL_USER: 'spring'
-      MYSQL_PASSWORD: 'springpass'
-    ports:
-      - "3306:3306"
-    networks:
-      - default
-
+services:  
   spring:
     build:
       context:  ./todolist
@@ -20,19 +7,35 @@ services:
     volumes:
       - ./todolist:/app
       - ./todolist/.m2:/root/.m2
-    working_dir: /app
-    command: sh run.sh
     ports:
       - 8080:8080
       - 35729:35729
       - 5005:5005
     restart: unless-stopped
-    depends_on:
-      - mysql_db
+    image: backend-es:v10
+    environment:
+      SPRING_DATASOURCE_URL : ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME : ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD : ${SPRING_DATASOURCE_PASSWORD}
+      EXTERNAL_AUTH_TOKEN_URL: ${EXTERNAL_AUTH_TOKEN_URL}
+      EXTERNAL_AUTH_CLIENT_CREDENTIALS : ${EXTERNAL_AUTH_CLIENT_CREDENTIALS}
+      COGNITO_JWKS_URL : ${COGNITO_JWKS_URL}
+    networks:  
+      - default
+      
+  angular:
+    build: ./frontend/es_107647
+    container_name: angular
+    stdin_open: true
+    ports:
+      - 4200:4200
+    expose:
+      - 4200
+    restart: unless-stopped
+    image: frontend-es
     networks:
       - default
     
-
 networks:
   default:
     driver: bridge

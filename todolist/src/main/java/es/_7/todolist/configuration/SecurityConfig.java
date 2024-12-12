@@ -41,6 +41,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/tasks").permitAll()
                                 .requestMatchers("/api/tasks/*").permitAll()
                                 .requestMatchers("/api/tasks/priority/*").permitAll()
+                                .requestMatchers("/actuator/health").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

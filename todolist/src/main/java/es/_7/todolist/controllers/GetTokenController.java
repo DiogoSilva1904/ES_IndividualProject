@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@CrossOrigin(origins = "*") // Allow all origins for CORS
+@CrossOrigin(origins = "https://es-ua.ddns.net") // Allow all origins for CORS
 @RestController
 @RequestMapping("/api/token")
 public class GetTokenController {
@@ -91,8 +91,7 @@ public class GetTokenController {
             // Prepare body
             String body = "grant_type=authorization_code" +
                           "&code=" + code +
-                          "&redirect_uri=http://localhost:4200/callback";
-
+                          "&redirect_uri=https://es-ua.ddns.net/callback";
             // Create request entity
             HttpEntity<String> entity = new HttpEntity<>(body, headers);
 

@@ -38,7 +38,7 @@ export class ApiService {
 
 
   async addTask(task:any) {
-    const url = 'http://localhost:8080/api/tasks';
+    const url = 'https://es-ua.ddns.net:444/api/tasks';
     console.log('task',task);
     if (task.deadline instanceof Date) {
       task.deadline = task.deadline.toISOString().split('T')[0];
@@ -52,7 +52,7 @@ export class ApiService {
   }
 
   async getLowPriorityTasks() {
-    const url = 'http://localhost:8080/api/tasks/priority/low';
+    const url = 'https://es-ua.ddns.net:444/api/tasks/priority/low';
     const response = await fetch(url,{
       method: 'GET',
       headers:this.getHeaders(true)
@@ -61,7 +61,7 @@ export class ApiService {
   }
 
   async getHighPriorityTasks() {
-    const url = 'http://localhost:8080/api/tasks/priority/high';
+    const url = 'https://es-ua.ddns.net:444/api/tasks/priority/high';
     const response = await fetch(url,{
       method: 'GET',
       headers: this.getHeaders(true)
@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   async getMediumPriorityTasks() {
-    const url = 'http://localhost:8080/api/tasks/priority/medium';
+    const url = 'https://es-ua.ddns.net:444/api/tasks/priority/medium';
     const response = await fetch(url,{
       method: 'GET',
       headers: this.getHeaders(true)
@@ -80,7 +80,7 @@ export class ApiService {
 
   async gettoken(code: string) {
     // Construct the GET request URL with the code parameter
-    const url = `http://localhost:8080/api/token/get?code=${code}`;
+    const url = `https://es-ua.ddns.net:444/api/token/get?code=${code}`;
 
 
     // Make the GET request
@@ -96,7 +96,7 @@ export class ApiService {
   }
 
   async deleteTask(id: string) {
-    const url = `http://localhost:8080/api/tasks/${id}`;
+    const url = `https://es-ua.ddns.net:444/api/tasks/${id}`;
     const response = await fetch(url, {
       method: 'DELETE',
       headers: this.getHeaders(true)
@@ -105,7 +105,7 @@ export class ApiService {
   }
 
   async updateTask(task: any) {
-    const url = `http://localhost:8080/api/tasks/${task.id}`;
+    const url = `https://es-ua.ddns.net:444/api/tasks/${task.id}`;
     const response = await fetch(url, {
       method: 'PUT',
       headers: this.getHeaders(true),
