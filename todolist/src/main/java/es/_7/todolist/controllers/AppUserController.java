@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://es-ua.ddns.net")
 @RestController
 @RequestMapping("/api/users")
 public class AppUserController {
