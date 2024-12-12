@@ -1,0 +1,79 @@
+  <h2 mat-dialog-title>Task Details</h2>
+  <form [formGroup]="taskForm">
+    <mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" [readonly]="!isFormEditable" required />
+        <mat-error *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          Title is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" [readonly]="!isFormEditable"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="category" [readonly]="!isFormEditable" required />
+        <mat-error *ngIf="taskForm.get('category')?.invalid && taskForm.get('category')?.touched">
+          Category is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority" [disabled]="!isFormEditable" required>
+          <mat-option value="LOW">Low</mat-option>
+          <mat-option value="MEDIUM">Medium</mat-option>
+          <mat-option value="HIGH">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Deadline</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="deadline" [disabled]="!isFormEditable" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="taskForm.get('deadline')?.invalid && taskForm.get('deadline')?.touched">
+          Deadline is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+          <mat-label>Creation Date</mat-label>
+          <input matInput formControlName="creation_date" [readonly]="true" />
+      </mat-form-field>
+
+      <section>
+        <h3>Completion Status</h3>
+        <mat-button-toggle-group formControlName="completion_status" aria-label="Completion Status">
+          <mat-button-toggle value="Completed">Completed</mat-button-toggle>
+          <mat-button-toggle value="Incomplete">In Progress</mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-error *ngIf="taskForm.get('completion_status')?.invalid && taskForm.get('completion_status')?.touched">
+          Completion status is required
+        </mat-error>
+      </section>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button (click)="close()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="isFormEditable ? saveTask() : toggleEdit()">
+        {{ isFormEditable ? 'Save' : 'Edit' }}
+      </button>
+      <button
+        mat-button
+        color="warn"
+        type="button"
+        (click)="delete()"
+        *ngIf="!isFormEditable">
+        Delete
+      </button>
+    </mat-dialog-actions>
+  </form>
